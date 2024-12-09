@@ -106,6 +106,15 @@ utils_info = [
             "description": "search query to look up"
         }]
     },
+    {
+        "name": "finish",
+        "description": "the user's task is finished",
+        "args": [{
+            "name": "answer",
+            "type": "string",
+            "description": "the final answer"
+        }]
+    }
 ]
 
 util_map = {

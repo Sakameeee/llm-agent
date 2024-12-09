@@ -22,7 +22,7 @@ agent_scratch:{agent_scratch}
 
 你应该只以json格式响应，响应格式如下:
 {response_format}
-确保响应结果可以由python json.loads解析
+不允许包含除了json文本之外的任何内容，确保响应结果可以由python json.loads解析
 """
 
 response_format_prompt = """
@@ -34,12 +34,12 @@ response_format_prompt = """
         }
     },
     "thoughts": {
-        "text": "thought",
-        "plan": "plan",
-        "criticism": "criticism",
-        "speak": "speak",
-        "reasoning": ""
+        "plan": "简短的描述短期和长期的计划列表",
+        "criticism": "建设性的自我批判",
+        "speak": "当前步骤返回给用户的总结",
+        "reasoning": "推理"
     }
+    "observation": "观察当前任务的整体进度"
 }
 """
 
@@ -80,3 +80,7 @@ def gen_prompt(query, agent_scratch):
         response_format=response_format_prompt
     )
     return prompt
+
+
+user_prompt = ("进度存储在 agent_scratch 里，根据给定的目标和迄今为止的进度，确定下一个要执行的 action，"
+               "并使用前面指定的 JSON 模板进行响应，JSON 的 value 值应该用中文回答。任务应该在有限的步骤内完成，最后要执行 finish 动作")
